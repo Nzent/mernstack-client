@@ -1,0 +1,32 @@
+html{
+  margin: 0px;
+  padding: 0px;
+}
+a {
+  text-decoration: none;
+}
+.page-title{
+  background-color: #ffffff;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 5px;
+}
+.navbar{
+  background-color: white;
+  margin-bottom: 10px;
+}
+.navavatar{
+  cursor: pointer;
+  border: 1px solid #1990ff;
+}
+section {
+  overflow-y: scroll;
+  background-color: rgba(229, 231, 235, 1);
+  height: 100vh;
+  width: 100%;
+}
+.container {
+  max-width: 1600px;
+  margin: auto;
+}
