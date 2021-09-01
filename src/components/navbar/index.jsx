@@ -8,15 +8,15 @@ export default function Index() {
         // Drop down menu of the navbar
         <Menu>
             <Menu.Item>
-                <a target="_blank" rel="noopener noreferrer" href="#">
+                <Button>
                     <UserOutlined /> My Profile
-                </a>
+                </Button>
             </Menu.Item>
             <hr />
             <Menu.Item>
-                <a target="_blank" rel="noopener noreferrer" href="#">
+                <Button>
                     <LoginOutlined /> Log oout
-                </a>
+                </Button>
             </Menu.Item>
         </Menu>
     );
@@ -32,7 +32,7 @@ export default function Index() {
                         <Link to='/login'><Button key="3"><LoginOutlined />Login</Button></Link>,
                         <Dropdown overlay={menu} placement="bottomLeft">
                             <Avatar className='navavatar'
-                                src={<img src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                                src={<img src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" alt="avatar"/>}
                             />
                         </Dropdown>
                     ]}

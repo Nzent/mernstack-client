@@ -1,18 +1,36 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Form, Input, Button, DatePicker, Select, InputNumber } from 'antd';
 import { Option } from 'antd/lib/mentions';
-import { useDispatch } from 'react-redux';
-import { createUser } from '../../actions/users';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateUser } from '../../actions/users';
+import moment from 'moment';
+import { RetweetOutlined, SendOutlined } from '@ant-design/icons';
 
 
-export default function FormComponent({ id }) {
-    // redux store initialize 
+export default function FormComponent({ currentId }) {
+    // pull selected user data from api
+    const user = useSelector((state) => currentId ? state.users.find((p) => p._id === currentId) : null);
+ 
     const dispatch = useDispatch()
-    // loading state
+    // Populate form values from id 
     const [form] = Form.useForm();
+
+    // set form data to selected user details
+    form.setFieldsValue({
+        first_name: user.first_name,
+        last_name: user.last_name,
+        dob: moment(user.dob),
+        department: user.department,
+        email: user.email,
+        phone: user.phone,
+        address: user.address,
+        role: user.role,
+    });
+
+
     //Submit successful function
     const onFinish = (values) => {
-        dispatch(createUser(values))
+        if (currentId) dispatch(updateUser(currentId, values))
         form.resetFields()
     };
 
@@ -23,12 +41,17 @@ export default function FormComponent({ id }) {
 
     return (
         <div>
-            <div>{id}</div>
+            <div style={{ textAlign: 'center' }}>
+                <h1>Update user form</h1>
+                {console.log('form', user)}
+            </div>
             <Form
+                form={form}
+                // key={formData._id}
                 name="basic"
                 labelCol={{ span: 8 }}
                 wrapperCol={{ span: 16 }}
-                initialValues={{ remember: true }}
+                initialValues={{}}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}>
                 {/* First name */}
@@ -103,9 +126,10 @@ export default function FormComponent({ id }) {
                         <Option value="teamleader">Team leader</Option>
                     </Select>
                 </Form.Item>
+                {/* Submit */}
                 <Form.Item key="10" wrapperCol={{ offset: 8, span: 16, }} style={{ textAlign: 'right' }}>
                     <Button type="primary" htmlType="submit" >
-                        Submit
+                        Update <RetweetOutlined />
                     </Button>
                 </Form.Item>
             </Form>

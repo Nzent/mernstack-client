@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect} from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { getUsers } from './actions/users.js'
@@ -12,11 +12,9 @@ import Login from './pages/auth/login'
 
 
 const App = () => {
-
     const dispatch = useDispatch()
-
     useEffect(() => {
-        dispatch(getUsers())
+        dispatch(getUsers())//initialize redux dispatch for user
     }, [dispatch])
     return (
         <>
