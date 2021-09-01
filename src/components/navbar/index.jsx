@@ -1,10 +1,11 @@
 import React from 'react'
 import { Button, Dropdown, Menu, PageHeader } from 'antd';
-import { LoginOutlined, UserAddOutlined, UserOutlined } from '@ant-design/icons'
+import { LoginOutlined, UserOutlined } from '@ant-design/icons'
 import Avatar from 'antd/lib/avatar/avatar';
+import { Link } from 'react-router-dom';
 export default function Index() {
-
     const menu = (
+        // Drop down menu of the navbar
         <Menu>
             <Menu.Item>
                 <a target="_blank" rel="noopener noreferrer" href="#">
@@ -27,7 +28,8 @@ export default function Index() {
                     title="ABC Management"
                     subTitle="User management system"
                     extra={[
-                        <Button key="2"><UserAddOutlined />Add user</Button>,
+                        <Link to='/'><Button key="1"><UserOutlined />Users</Button></Link>,
+                        <Link to='/login'><Button key="3"><LoginOutlined />Login</Button></Link>,
                         <Dropdown overlay={menu} placement="bottomLeft">
                             <Avatar className='navavatar'
                                 src={<img src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
@@ -36,6 +38,7 @@ export default function Index() {
                     ]}
                 />
             </div>
+            {/* Add new user modal */}
         </>
     )
 }
