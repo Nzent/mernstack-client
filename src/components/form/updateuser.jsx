@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Form, Input, Button, DatePicker, Select, InputNumber } from 'antd';
 import { Option } from 'antd/lib/mentions';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../actions/users';
 import moment from 'moment';
-import { RetweetOutlined, SendOutlined } from '@ant-design/icons';
+import { RetweetOutlined } from '@ant-design/icons';
 
 
 export default function FormComponent({ currentId }) {
     // pull selected user data from api
     const user = useSelector((state) => currentId ? state.users.find((p) => p._id === currentId) : null);
- 
+
     const dispatch = useDispatch()
     // Populate form values from id 
     const [form] = Form.useForm();
+
 
     // set form data to selected user details
     form.setFieldsValue({
@@ -30,14 +31,17 @@ export default function FormComponent({ currentId }) {
 
     //Submit successful function
     const onFinish = (values) => {
+
         if (currentId) dispatch(updateUser(currentId, values))
         form.resetFields()
+        window.location.reload(false);//refresh page to new data
     };
 
     // Submit failed function
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
+
 
     return (
         <div>

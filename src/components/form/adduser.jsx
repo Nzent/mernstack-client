@@ -14,6 +14,7 @@ export default function FormComponent({ id }) {
     const onFinish = (values) => {
         dispatch(createUser(values))
         form.resetFields()
+        window.location.reload(false);//refresh page to new data
     };
 
     // Submit failed function
@@ -25,6 +26,7 @@ export default function FormComponent({ id }) {
         <div>
             <div>{id}</div>
             <Form
+                form={form}
                 name="basic"
                 labelCol={{ span: 8 }}
                 wrapperCol={{ span: 16 }}

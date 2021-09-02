@@ -4,7 +4,9 @@ import Modal from 'antd/lib/modal/Modal';
 import UpdateUserForm from '../form/updateuser';
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import confirm from 'antd/lib/modal/confirm';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteUser } from '../../actions/users'
+
 const { Column, ColumnGroup } = Table;
 
 export default function Index() {
@@ -16,14 +18,15 @@ export default function Index() {
 
     // initialize redux store
     const users = useSelector((state) => state.users);
-
+    const dispatch = useDispatch()
     // function for edit button on the table
     function updateUser(e) {
         setVisible(true)
         setCurrentID(e)
     }
-
-    function showDeleteConfirm(e) {
+    // function delete user
+    function deleteUserfunction(e) {
+        setCurrentID(e)
         confirm({
             title: `Are you sure delete this user? id: ${currentId}`,
             icon: <ExclamationCircleOutlined />,
@@ -33,17 +36,18 @@ export default function Index() {
             cancelText: 'No',
             type: 'danger',
             onOk() {
-                console.log('OK');
+                dispatch(deleteUser(e))
             },
             onCancel() {
                 console.log('Cancel');
             },
         })
     }
+
     return (
         <>
             <div>
-                <Table dataSource={users} rowKey={users => users._id} size='large' pagination={{ pageSize: 50 }} bordered scroll={{ x: 1000 }}>
+                <Table dataSource={users} rowKey={users => users._id} size='large' pagination={{ pageSize: 10 }} bordered scroll={{ x: 1000 }}>
 
                     {/* Name of the user */}
                     <ColumnGroup title="Name">
@@ -55,11 +59,11 @@ export default function Index() {
                     {/* Department */}
                     <Column title="Department" dataIndex="department" key="department" sorter={{ compare: (a, b) => a.department - b.department }} />
                     {/* Email */}
-                    <Column title="Email" dataIndex="email" key="email" sorter={{ compare: (a, b) => a.email - b.email }}/>
+                    <Column title="Email" dataIndex="email" key="email" sorter={{ compare: (a, b) => a.email - b.email }} />
                     {/* Phone */}
-                    <Column title="Phone" dataIndex="phone" key="phone" sorter={{ compare: (a, b) => a.phone - b.phone }}/>
+                    <Column title="Phone" dataIndex="phone" key="phone" sorter={{ compare: (a, b) => a.phone - b.phone }} />
                     {/* Address */}
-                    <Column title="Address" dataIndex="address" key="address" sorter={{ compare: (a, b) => a.address - b.address }}/>
+                    <Column title="Address" dataIndex="address" key="address" sorter={{ compare: (a, b) => a.address - b.address }} />
                     {/* Tags */}
                     <Column
                         title="Role"
@@ -82,8 +86,8 @@ export default function Index() {
                         dataIndex="_id"
                         render={(_id) => (
                             <Space size="middle" key={_id}>
-                                <Button href='#' onClick={() => updateUser(_id)} >Update</Button>
-                                <a href='#' onClick={showDeleteConfirm}>Delete</a>
+                                <Button onClick={() => updateUser(_id)} >Update</Button>
+                                <Button danger onClick={() => deleteUserfunction(_id)}>Delete</Button>
                             </Space>
                         )}
                     />

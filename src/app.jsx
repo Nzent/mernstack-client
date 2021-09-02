@@ -1,8 +1,7 @@
-import React, { useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { getUsers } from './actions/users.js'
-
 // Components import
 import Navbar from './components/navbar';
 // Router pages imports
@@ -34,5 +33,6 @@ const App = () => {
         </>
     )
 }
+
 
 export default App

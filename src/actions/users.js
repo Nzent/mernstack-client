@@ -9,7 +9,7 @@ export const getUsers = () => async (dispatch) => {
         const { data } = await api.fetchAllUsers()
         dispatch({ type: 'FETCH_ALL', payload: data }) //pass the data to redux dispatch
     } catch (error) {
-        console.log(error.message);
+        console.log(error);
     }
 }
 
@@ -19,7 +19,7 @@ export const createUser = (user) => async (dispatch) => {
         const { data } = await api.createUser(user)
         dispatch({ type: 'CREATE', payload: data }) //pass the data to redux dispatch
     } catch (error) {
-        console.log(error.message);
+        console.log(error);
     }
 }
 
@@ -29,6 +29,16 @@ export const updateUser = (id, values) => async (dispatch) => {
         const { data } = await api.updateUser(id, values)
         dispatch({ type: 'UPDATE', payload: data })
     } catch (error) {
-        console.log(error.message);
+        console.log(error);
+    }
+}
+
+// Delete existing user action
+export const deleteUser = (id) => async (dispatch) => {
+    try {
+        await api.deleteUser(id)
+        dispatch({ type: 'DELETE', payload: id })
+    } catch (error) {
+        console.log(error);
     }
 }

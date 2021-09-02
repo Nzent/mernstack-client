@@ -28,13 +28,32 @@ export const createUser = (nreUser) => axios.post(API_URL, nreUser)
 
 
 // Update existing user api call
-export const updateUser = (id, values) => axios.patch(`${API_URL}/${id}`,values)
+export const updateUser = (id, values) => axios.patch(`${API_URL}/${id}`, values)
     .then((res) =>
         res.status === 200 &&
         notification
             .success({
                 message: 'Updated !',
                 description: 'User updated !',
+            })
+    )
+    .catch((e) =>
+        notification
+            .error({
+                message: 'Error !',
+                description: `${e}`,
+            })
+    )
+
+
+// Delete existing user api call
+export const deleteUser = (id) => axios.delete(`${API_URL}/${id}`)
+    .then((res) =>
+        res.status === 200 &&
+        notification
+            .success({
+                message: 'Deleted !',
+                description: 'User deleted !',
             })
     )
     .catch((e) =>
